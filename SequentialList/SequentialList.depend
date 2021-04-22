@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1619047161 source:c:\users\samue\documents\desktop\examplesed\sequentiallist\main.c
+	<stdio.h>
+	<stdlib.h>
+
