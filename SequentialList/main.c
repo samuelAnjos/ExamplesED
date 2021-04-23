@@ -55,6 +55,53 @@ int removeNaoOrd(int *lista, int chave){
     return 0;
 }
 
+// ordered by Insertion Sort
+void orderedListByInsertionSort(int *lista){
+    int j, temporary;
+    for(int i=1; i<quantidade; i++){
+        j=i;
+        temporary = lista[i];
+        while(j>0 && temporary < lista[j-1]){
+            lista[j] = lista[j-1];
+            j--;
+        }
+        lista[j] = temporary;
+    }
+
+
+}
+
+// adding to ordered list
+int addingOrderedList(int *lista, int elementToBeInserted){
+
+    int i = quantidade;
+    if(quantidade < maximo){
+       while((i >0) && (elementToBeInserted < lista[i-1])){
+          lista[i] = lista[i-1];
+          i--;
+       }
+
+       lista[i] = elementToBeInserted;
+       quantidade++;
+       return 1;
+
+        }
+       return 0;
+}
+// Delete from an ordered list
+int deleteFromAnOrderedLis(int *lista, int element){
+    int number = pesqSequencial(lista, element);
+    if(quantidade>=0){
+    while(number<quantidade-1){
+       lista[number] = lista[number+1];
+       number++;
+     }
+    quantidade--;
+    return 1;
+   }
+   return 0;
+}
+
 void main(){
     int* vetor;
     int op, aux, resp;
@@ -64,7 +111,9 @@ void main(){
         printf("\n1 - Insere elemento em lista nao ordenada");
         printf("\n2 - Pesquisa elemento em lista nao ordenada");
         printf("\n3 - Remocao nao ordenada");
-        printf("\n5 - Exibe elementos da lista");
+        printf("\n4 - Inserir em lista ordenada");
+         printf("\n5 - Apagar elementos da lista ordenada");
+        printf("\n6 - Exibe elementos da lista");
         printf("\n0 - Sair do programa");
         printf("\nDigite sua opcao:");
         scanf("%d",&op);
@@ -90,7 +139,30 @@ void main(){
             else
                 printf("\n>  Remocao nao realizada\n");
             break;
-        case 5:
+        case 4:
+                orderedListByInsertionSort(vetor);
+                printf("\n>  Digite o elemento a ser inserido de forma ordenada:\n");
+                scanf("%d",&aux);
+                resp = addingOrderedList(vetor, aux);
+            if(resp)
+                printf("\n>  Adicao realizada com sucesso\n");
+            else
+                printf("\n>  Adicao nao realizada\n");
+
+            break;
+          case 5:
+                orderedListByInsertionSort(vetor);
+                printf("\n>  Digite o elemento a ser removido de forma ordenada:\n");
+                scanf("%d",&aux);
+                resp = deleteFromAnOrderedLis(vetor, aux);
+            if(resp)
+                printf("\n>  Remocao realizada com sucesso\n");
+            else
+                printf("\n>  Remocao nao realizada\n");
+
+            break;
+
+        case 6:
             mostraLista(vetor);
             break;
         case 0:
