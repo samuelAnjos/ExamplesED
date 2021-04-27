@@ -4,7 +4,7 @@
 int maximo = 30;
 int quantidade = 0;
 
-/*FunÁ„o que cria dinamicamente uma lista vazia*/
+/*Fun√ß√£o que cria dinamicamente uma lista vazia*/
 int* criaLista(){
     int *lista;
     lista = malloc(maximo * sizeof(int));
@@ -16,7 +16,7 @@ int* criaLista(){
     }
 }
 
-/*FunÁ„o que faz a inserÁ„o de um elemento em uma lista n„o ordenada*/
+/*Fun√ß√£o que faz a inser√ß√£o de um elemento em uma lista n√£o ordenada*/
 int insereNaoOrd(int *lista){
     if(quantidade < maximo){
         printf("\nDigite um inteiro:");
@@ -26,15 +26,15 @@ int insereNaoOrd(int *lista){
     return 0;
 }
 
-/*FunÁ„o que exibe a lista*/
+/*Fun√ß√£o que exibe a lista*/
 void mostraLista(int *lista){
     for(int x=0; x<quantidade; x++){
         printf(" %5d ",lista[x]);
     }
 }
 
-/*FunÁ„o que faz pesquisa sequencial em lista n„o ordenada retornando o Ìndice do elemento e
-  -1 caso o elemento n„o seja encontrado*/
+/*Fun√ß√£o que faz pesquisa sequencial em lista n√£o ordenada retornando o √≠ndice do elemento e
+  -1 caso o elemento n√£o seja encontrado*/
 int pesqSequencial(int *lista, int chave){
     for(int x=0; x<quantidade; x++)
         if(chave == lista[x])
@@ -42,8 +42,8 @@ int pesqSequencial(int *lista, int chave){
     return -1;
 }
 
-/*FunÁ„o que faz a remoÁ„o de um valor de uma lista n„o ordenada, caso o valor a ser removido
-n„o seja encontrado a funÁ„o retorna 0*/
+/*Fun√ß√£o que faz a remo√ß√£o de um valor de uma lista n√£o ordenada, caso o valor a ser removido
+n√£o seja encontrado a fun√ß√£o retorna 0*/
 int removeNaoOrd(int *lista, int chave){
     int aux;
     aux = pesqSequencial(lista, chave);
@@ -53,22 +53,6 @@ int removeNaoOrd(int *lista, int chave){
         return 1;
     }
     return 0;
-}
-
-// ordered by Insertion Sort
-void orderedListByInsertionSort(int *lista){
-    int j, temporary;
-    for(int i=1; i<quantidade; i++){
-        j=i;
-        temporary = lista[i];
-        while(j>0 && temporary < lista[j-1]){
-            lista[j] = lista[j-1];
-            j--;
-        }
-        lista[j] = temporary;
-    }
-
-
 }
 
 // adding to ordered list
@@ -140,7 +124,6 @@ void main(){
                 printf("\n>  Remocao nao realizada\n");
             break;
         case 4:
-                orderedListByInsertionSort(vetor);
                 printf("\n>  Digite o elemento a ser inserido de forma ordenada:\n");
                 scanf("%d",&aux);
                 resp = addingOrderedList(vetor, aux);
@@ -151,7 +134,6 @@ void main(){
 
             break;
           case 5:
-                orderedListByInsertionSort(vetor);
                 printf("\n>  Digite o elemento a ser removido de forma ordenada:\n");
                 scanf("%d",&aux);
                 resp = deleteFromAnOrderedLis(vetor, aux);
