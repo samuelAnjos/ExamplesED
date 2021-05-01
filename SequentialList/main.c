@@ -55,23 +55,8 @@ int removeNaoOrd(int *lista, int chave){
     return 0;
 }
 
-// ordered by Insertion Sort
-void orderedListByInsertionSort(int *lista){
-    int j, temporary;
-    for(int i=1; i<quantidade; i++){
-        j=i;
-        temporary = lista[i];
-        while(j>0 && temporary < lista[j-1]){
-            lista[j] = lista[j-1];
-            j--;
-        }
-        lista[j] = temporary;
-    }
-
-
-}
-
 // adding to ordered list
+
 int addingOrderedList(int *lista, int elementToBeInserted){
 
     int i = quantidade;
@@ -88,6 +73,8 @@ int addingOrderedList(int *lista, int elementToBeInserted){
         }
        return 0;
 }
+
+
 // Delete from an ordered list
 int deleteFromAnOrderedLis(int *lista, int element){
     int number = pesqSequencial(lista, element);
@@ -102,18 +89,35 @@ int deleteFromAnOrderedLis(int *lista, int element){
    return 0;
 }
 
+int pesquisaBinaria(int *lista, int valorHaSerPesquisdo){
+    int inicio=0, meio, fim=quantidade-1;
+
+    while(inicio<=fim){
+        meio=(inicio+fim)/2;
+        if(valorHaSerPesquisdo==lista[meio]){
+           return meio;
+        }else if(valorHaSerPesquisdo<lista[meio]){
+            fim = meio-1;
+        }else{
+            inicio = meio+1;
+        }
+    }
+    return -1;
+}
+
 void main(){
     int* vetor;
     int op, aux, resp;
     vetor = criaLista();
     do{
-        printf("\nEscolha uma opcao:");
+        printf("\nEscolha uma opcao: >>");
         printf("\n1 - Insere elemento em lista nao ordenada");
         printf("\n2 - Pesquisa elemento em lista nao ordenada");
         printf("\n3 - Remocao nao ordenada");
         printf("\n4 - Inserir em lista ordenada");
-         printf("\n5 - Apagar elementos da lista ordenada");
-        printf("\n6 - Exibe elementos da lista");
+        printf("\n5 - Apagar elementos da lista ordenada");
+        printf("\n6 - Pesquisa binaria");
+        printf("\n7 - Exibe elementos da lista");
         printf("\n0 - Sair do programa");
         printf("\nDigite sua opcao:");
         scanf("%d",&op);
@@ -122,7 +126,7 @@ void main(){
             insereNaoOrd(vetor);
             break;
         case 2:
-            printf("\n>  Digite o elemento a ser buscado:\n");
+            printf("\n>  Digite o elemento a ser buscado: >\n");
             scanf("%d",&aux);
             resp = pesqSequencial(vetor, aux);
             if(resp != -1)
@@ -140,8 +144,8 @@ void main(){
                 printf("\n>  Remocao nao realizada\n");
             break;
         case 4:
-                orderedListByInsertionSort(vetor);
-                printf("\n>  Digite o elemento a ser inserido de forma ordenada:\n");
+
+                printf("\n>  Digite o elemento a ser inserido de forma ordenada: >\n");
                 scanf("%d",&aux);
                 resp = addingOrderedList(vetor, aux);
             if(resp)
@@ -151,7 +155,7 @@ void main(){
 
             break;
           case 5:
-                orderedListByInsertionSort(vetor);
+
                 printf("\n>  Digite o elemento a ser removido de forma ordenada:\n");
                 scanf("%d",&aux);
                 resp = deleteFromAnOrderedLis(vetor, aux);
@@ -163,6 +167,15 @@ void main(){
             break;
 
         case 6:
+            printf("\n>  Digite o elemento a ser pesquisado : >\n");
+            scanf("%d",&aux);
+            resp = pesquisaBinaria(vetor, aux);
+            if(resp)
+                printf("\n>  Elemento encontrado na posicao: %i", resp);
+            else
+                printf("\n>  Elemento nao encontrado\n");
+            break;
+        case 7:
             mostraLista(vetor);
             break;
         case 0:
