@@ -219,17 +219,24 @@ int inserirPosicao(Manage *listt, int posicao, int dado)
     return 1;
 }
 
-void removerDeterminadaPosicao(Manage *listt, int pos)
-{
-    /*no *atual, *toBeMoved;
-    if(pos > 0 && pod <= listt->quantity){
-        if(pos==1){
-           removePrimeiroElemento(listt);
-        }else{
-          // 2:5  que foi passado para fazer em casa FAZER
-        }
-    }
-    */
+void removerDeterminadaPosicao(Manage *listt, int pos){ // CASA
+   no *anterior, *atual;
+   atual = listt->start;
+   if(pos >0 && pos<= listt->quantity){
+       if(pos==1){
+          removePrimeiroElemento(listt); //++++
+       }else if(pos==listt->quantity){
+            removerFim(listt);
+       }else{
+          for(int x=1; x<=pos; x++){
+              anterior=atual;
+              atual=atual->proxNo;
+          }
+          anterior->proxNo=atual->proxNo;
+       }
+   }
+   free(atual);
+   listt->quantity--;
 }
 
 int RetornaPosicao(Manage *listt, int dado)
@@ -268,6 +275,7 @@ int main()
         printf("\n6 - INseri na POSICAO");
         printf("\n7 - >> Exibe elementos da lista");
         printf("\n8 - Mostra posicao LISTA");
+        printf("\n9 - REMOVER DETERMINADA POSICAO");
         printf("\n0 - Sair do programa");
         printf("\nDigite sua opcao:");
         scanf("%d",&op);
@@ -345,6 +353,11 @@ int main()
                 cout << "Operacao não bem sucedida " << endl;
             }
 
+            break;
+        case 9:
+            cout << "Informe a posicao para remover elemento: " << endl;
+            cin >> aux;
+            removerDeterminadaPosicao(&listt, aux);
             break;
         default:
             printf("\n>  Opcao invalida!\n");
