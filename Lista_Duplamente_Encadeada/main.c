@@ -82,7 +82,39 @@ int inserirFim(tipoLista *lista, int valor){
     }
 }
 
-//to do remove do fim 1:06
+void removerInicio(tipoLista *lista){ // new code
+    tipoNo *noInicio;
+    noInicio = lista->inicio;
+    if(noInicio->proxNo == NULL){
+        lista->inicio = NULL;
+        lista->fim = NULL;
+    }else{
+         lista->inicio = noInicio->proxNo->antNo;
+         noInicio->proxNo->antNo = NULL;
+    }
+    free(noInicio);
+    lista->qtdade--;
+}
+
+void removerFim(tipoLista *lista){
+    tipoNo *atual;
+    atual = lista->fim;
+    if(atual->antNo == NULL){
+        lista->inicio = NULL;
+        lista->fim = NULL;
+    }else{
+
+     atual->antNo->proxNo = NULL;
+     lista->fim = atual->antNo;
+    }
+    free(atual);
+    lista->qtdade--;
+}
+
+// FALTA
+//  Remover do inicio
+//  inserir em determinada posicao
+//  pesquisar elemento
 
 int main()
 {
@@ -94,8 +126,8 @@ int main()
         printf("\nMenu\n\n1 - Insere elemento em lista vazia:");
         printf("\n2 - Insere elemento na frente da lista");
         printf("\n3 - Insere no fim");
-        //printf("\n4 - Insere elemento no fim da lista");
-        //printf("\n5 - Busca dado na lista");
+        printf("\n4 - Remover do fim.");
+        printf("\n5 - Remove Inicio");
         //printf("\n6 - Remove elemento do fim da lista");
         printf("\n9 - Exibe lista");
         printf("\n0 - Encerra programa");
@@ -118,18 +150,15 @@ int main()
                  else
                     printf("Insercao nao efetuada!");
             break;
+
+            case 4:
+                  removerFim(&lista);
+            break;
+
+            case 5:
+                removerInicio(&lista);
+            break;
             /*
-            case 4: printf("\nDigite o elemento que deseja inserir: ");
-                scanf("%d",&aux);
-                insereNoFim(&lista, aux);
-            break;
-            case 5: printf("\nDigite o elemento que deseja buscar: ");
-                    scanf("%d",&aux);
-                    if(aux2 = buscaDado(&lista, aux))
-                        printf("\nElemento encontrado na posicao %d.",aux2);
-                    else
-                        printf("\nElemento não encontrado.");
-            break;
             case 6: removeDoFim(&lista);
             break; */
             case 9: showList(&lista);
