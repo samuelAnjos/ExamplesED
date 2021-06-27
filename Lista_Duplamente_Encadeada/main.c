@@ -92,6 +92,7 @@ void removerInicio(tipoLista *lista){ // new code
          lista->inicio = noInicio->proxNo->antNo;
          noInicio->proxNo->antNo = NULL;
     }
+
     free(noInicio);
     lista->qtdade--;
 }
@@ -112,14 +113,40 @@ void removerFim(tipoLista *lista){
 }
 
 // FALTA
-//  Remover do inicio
 //  inserir em determinada posicao
+int inserirEmDeterminadaPosicao(tipoLista *lista, int pos, int valor){ // tem erro!!!
+        tipoNo *novoNo, *atual; // sera q precisso de 2
+        atual = lista->inicio;
+        if(pos>0 && pos<=lista->qtdade){  // se posicao valida
+            if(pos==1){
+                inserirfrente(lista, valor);
+            }else if(pos==lista->qtdade){
+                inserirFim(lista, valor);
+            }else{
+                tipoNo *novoNo;
+                novoNo = (tipoNo *) malloc(sizeof(tipoNo));
+                if(novoNo==NULL){
+                    return 0;
+                }
+                for(int i=1; i<=pos-1; i++){
+                    atual = atual->proxNo;
+                }
+                novoNo = novoNo->dado;
+                novoNo->proxNo = atual->antNo;
+                novoNo->antNo = atual->antNo;
+                atual->antNo->proxNo = novoNo->antNo;
+                lista->qtdade++;
+
+            }
+        }
+        return 1;
+}
 //  pesquisar elemento
 
 int main()
 {
     tipoLista lista;
-    int aux,op;
+    int aux,op, pos;
     inicializarValoresDaLista(&lista);
     printf("LISTA DUPLAMENTE ENCADEADA");
     do{
@@ -128,7 +155,7 @@ int main()
         printf("\n3 - Insere no fim");
         printf("\n4 - Remover do fim.");
         printf("\n5 - Remove Inicio");
-        //printf("\n6 - Remove elemento do fim da lista");
+        printf("\n6 - Inserir em determinada posicao");
         printf("\n9 - Exibe lista");
         printf("\n0 - Encerra programa");
         printf("\nEscolha sua opcao: ");
@@ -158,9 +185,17 @@ int main()
             case 5:
                 removerInicio(&lista);
             break;
-            /*
-            case 6: removeDoFim(&lista);
-            break; */
+
+            case 6:
+                printf("Informe o elemento para ser inserido na posicao");
+                 scanf("%d", &aux);
+                 printf("Informe posicao");
+                 scanf("%d", &pos);
+                 if(inserirEmDeterminadaPosicao(&lista, pos, aux))
+                     printf("Valor inserido com sucesso");
+                 else
+                    printf("Insercao nao efetuada!");
+            break;
             case 9: showList(&lista);
             break;
             case 0: printf("\nEncerrando programa.");
